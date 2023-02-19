@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">IMC Calculator</string>
     <string name="calculate">Calculate</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="height">Height</string>
+    <string name="height_value">120 cm</string>
+    <string name="weight">Weight</string>
+    <string name="weight_value">60</string>
+    <string name="add_weight_button">Add Weight Button</string>
+    <string name="minus_weight_button">Minus Weight Button</string>
+    <string name="age_value">21</string>
+    <string name="minus_age_button">Minus Age Button</string>
+    <string name="add_age_button">Add Age Button</string>
 </resources>
