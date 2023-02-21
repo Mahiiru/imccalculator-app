@@ -3,7 +3,6 @@ package com.mahiiru.imccalculator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -45,45 +44,85 @@ class MainActivity : AppCompatActivity() {
         tvWeight = findViewById(R.id.tvWeight)
         btnMinusWeight = findViewById(R.id.btnMinusWeight)
         btnAddWeight = findViewById(R.id.btnAddWeight)
+        tvAge = findViewById(R.id.tvAge)
+        btnMinusAge = findViewById(R.id.btnMinusAge)
+        btnAddAge = findViewById(R.id.btnAddAge)
+        btnCalculate = findViewById(R.id.btnCalculate)
     }
 
     private fun initListeners() {
         rsHeight.addOnChangeListener { _, value, _ ->
             val df = DecimalFormat("#.##")
             currentHeight = df.format(value).toInt()
-            tvHeight.text = "$currentHeight cm"
-
+            setHeight()
         }
         btnMinusWeight.setOnClickListener { minusActualWeight() }
         btnAddWeight.setOnClickListener { addActualWeight() }
+        btnMinusAge.setOnClickListener { minusActualAge() }
+        btnAddAge.setOnClickListener { addActualAge() }
+        btnCalculate.setOnClickListener { changeToResultActivity() }
 
+    }
+
+    private fun initUI() {
+        setWeight()
+        setAge()
+        setHeight()
+    }
+
+    private fun changeToResultActivity() {
+        val resultIMC : Double = calculateIMC()
+        navigateToResult(resultIMC)
+    }
+
+    private fun navigateToResult(resultIMC: Double) {
+
+    }
+
+    private fun calculateIMC() : Double {
+        val df = DecimalFormat("#.##")
+        val imc = currentWeight / (currentHeight.toDouble() /100 * currentHeight.toDouble() /100)
+        return df.format(imc).toDouble()
+    }
+
+    private fun addActualAge() {
+        if(currentAge < 130){
+            currentAge += 1
+            setAge()
+        }
+    }
+
+    private fun minusActualAge() {
+        if(currentAge > 0){
+            currentAge -= 1
+            setAge()
+        }
     }
 
     private fun addActualWeight() {
         if(currentWeight < 300){
             currentWeight += 1
-            tvWeight.text = currentWeight.toString()
+            setWeight()
         }
     }
 
     private fun minusActualWeight() {
         if(currentWeight > 0){
             currentWeight -= 1
-            tvWeight.text = currentWeight.toString()
+            setWeight()
         }
     }
 
-    private fun initUI() {
-        setWeigth()
-        setAge()
-    }
-
-    private fun setWeigth() {
+    private fun setWeight() {
         tvWeight.text = currentWeight.toString()
     }
 
     private fun setAge() {
         tvAge.text = currentAge.toString()
+    }
+
+    private fun setHeight() {
+        tvHeight.text = "$currentHeight cm"
     }
 
 }
