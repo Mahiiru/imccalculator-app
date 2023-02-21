@@ -12,4 +12,5 @@
     <string name="age_value">21</string>
     <string name="minus_age_button">Minus Age Button</string>
     <string name="add_age_button">Add Age Button</string>
+    <string name="age">Age</string>
 </resources>
