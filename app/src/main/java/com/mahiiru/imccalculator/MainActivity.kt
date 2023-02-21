@@ -8,8 +8,13 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.slider.RangeSlider
+import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
+
+    private var currentWeight: Int = 60
+    private var currentAge: Int = 21
+    private var currentHeight: Int = 120
 
     private lateinit var cvMale : CardView
     private lateinit var cvFemale : CardView
@@ -35,15 +40,50 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initComponents() {
-        TODO("Not yet implemented")
+        tvHeight = findViewById(R.id.tvHeight)
+        rsHeight = findViewById(R.id.rsHeight)
+        tvWeight = findViewById(R.id.tvWeight)
+        btnMinusWeight = findViewById(R.id.btnMinusWeight)
+        btnAddWeight = findViewById(R.id.btnAddWeight)
     }
 
     private fun initListeners() {
-        TODO("Not yet implemented")
+        rsHeight.addOnChangeListener { _, value, _ ->
+            val df = DecimalFormat("#.##")
+            currentHeight = df.format(value).toInt()
+            tvHeight.text = "$currentHeight cm"
+
+        }
+        btnMinusWeight.setOnClickListener { minusActualWeight() }
+        btnAddWeight.setOnClickListener { addActualWeight() }
+
+    }
+
+    private fun addActualWeight() {
+        if(currentWeight < 300){
+            currentWeight += 1
+            tvWeight.text = currentWeight.toString()
+        }
+    }
+
+    private fun minusActualWeight() {
+        if(currentWeight > 0){
+            currentWeight -= 1
+            tvWeight.text = currentWeight.toString()
+        }
     }
 
     private fun initUI() {
-        TODO("Not yet implemented")
+        setWeigth()
+        setAge()
+    }
+
+    private fun setWeigth() {
+        tvWeight.text = currentWeight.toString()
+    }
+
+    private fun setAge() {
+        tvAge.text = currentAge.toString()
     }
 
 }
