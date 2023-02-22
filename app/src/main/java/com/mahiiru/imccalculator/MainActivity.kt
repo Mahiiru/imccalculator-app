@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.slider.RangeSlider
 import java.text.DecimalFormat
@@ -15,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     private var currentWeight: Int = 60
     private var currentAge: Int = 21
     private var currentHeight: Int = 120
+    private var isMaleSelected = true
+    private var isFemaleSelected = false
 
     private lateinit var cvMale : CardView
     private lateinit var cvFemale : CardView
@@ -49,6 +52,8 @@ class MainActivity : AppCompatActivity() {
         btnMinusAge = findViewById(R.id.btnMinusAge)
         btnAddAge = findViewById(R.id.btnAddAge)
         btnCalculate = findViewById(R.id.btnCalculate)
+        cvMale = findViewById(R.id.cvMale)
+        cvFemale = findViewById(R.id.cvFemale)
     }
 
     private fun initListeners() {
@@ -62,7 +67,34 @@ class MainActivity : AppCompatActivity() {
         btnMinusAge.setOnClickListener { minusActualAge() }
         btnAddAge.setOnClickListener { addActualAge() }
         btnCalculate.setOnClickListener { changeToResultActivity() }
+        cvMale.setOnClickListener {
+            changeGender()
+            setGenderColor()
+        }
+        cvFemale.setOnClickListener {
+            changeGender()
+            setGenderColor()
+        }
 
+    }
+
+    private fun changeGender() {
+        isMaleSelected = !isMaleSelected
+        isFemaleSelected = !isFemaleSelected
+    }
+
+    private fun setGenderColor() {
+        cvMale.setCardBackgroundColor(getBackgroundColor(isMaleSelected))
+        cvFemale.setCardBackgroundColor(getBackgroundColor(isFemaleSelected))
+    }
+
+    private fun getBackgroundColor(genderSelected: Boolean): Int {
+        val colorReference = if(genderSelected) {
+            R.color.background_component_selected
+        }else{
+            R.color.background_component
+        }
+        return ContextCompat.getColor(this,colorReference)
     }
 
     private fun initUI() {
